@@ -48,7 +48,7 @@
          * - Show a satellite map of the weather in Brentwood.
          * - Request a user's phone number and send them an SMS with the weather.
          */
-        var query = 'Brentwood';
+        var query = '37027';
         class Test {
             constructor() {
                 this.testResults = document.getElementsByClassName('test-results');
@@ -65,12 +65,16 @@
                     const response = await axios.get(url);
                     const data = response.data;
                     console.log(data);
+                    var results  = data;
+                    
                 } catch (error) {
                     console.log(error);
                 }
                 };
                 getData(url);
+                
             }
+            
             setError(message) {
                 // TODO: Format the error
                 this.testResults.innerHTML = (message || '').toString();
