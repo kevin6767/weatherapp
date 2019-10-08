@@ -58,7 +58,7 @@
                 console.log(new Date().toISOString(), '[Test]', 'Running the test');
 
                 // TODO: Make the API call and handle the results
-                const url = `http://api.openweathermap.org/data/2.5/weather?q=${query}&appid=25e989bd41e3e24ce13173d8126e0fd6&units=metric`;
+                const url = `http://api.openweathermap.org/data/2.5/weather?q=${query}&appid=25e989bd41e3e24ce13173d8126e0fd6&units=imperial`;
                 //Using the axios libary to call the data and log it. 
                 const getData = async url => {
                 try {
