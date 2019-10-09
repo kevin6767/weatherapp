@@ -48,43 +48,46 @@
          * - Show a satellite map of the weather in Brentwood.
          * - Request a user's phone number and send them an SMS with the weather.
          */
-        var query = '37027';
+        
+        
+        
+        
         class Test {
-            constructor() {
-                this.testResults = document.getElementsByClassName('test-results');
-            }
+        testResults; 
+        constructor() {
+            this.testResults = document.getElementsByClassName('test-results');
+        }
 
-            async run() {
-                console.log(new Date().toISOString(), '[Test]', 'Running the test');
-
-                // TODO: Make the API call and handle the results
-                const url = `http://api.openweathermap.org/data/2.5/weather?q=${query}&appid=25e989bd41e3e24ce13173d8126e0fd6&units=imperial`;
-                //Using the axios libary to call the data and log it. 
-                const getData = async url => {
+        async run() {
+            console.log(new Date().toISOString(), '[Test]', 'Running the test');
+            // TODO: Make the API call and handle the results
+            const url = `http://api.openweathermap.org/data/2.5/weather?q=Brentwood,us&appid=25e989bd41e3e24ce13173d8126e0fd6&units=imperial`;
+            //Using the axios libary to call the data and log it.
+            const getData = async url => {
                 try {
                     const response = await axios.get(url);
                     const data = response.data;
-                    console.log(data);
-                    var results  = data;
-                    
+                    this.setResults(data);
                 } catch (error) {
                     console.log(error);
                 }
-                };
-                getData(url);
-                
-            }
-            
-            setError(message) {
-                // TODO: Format the error
-                this.testResults.innerHTML = (message || '').toString();
-            }
-
-            setResults(results) {
-                // TODO: Format the results
-                this.testResults.innerHTML = (results || '').toString();
-            }
+            };
+            getData(url);
         }
+        setError(message) {
+            // TODO: Format the error
+            this.testResults[0].innerHTML = (message || '').toString();
+        }
+
+        setResults(results) {
+            results = JSON.stringify(results);
+            for(let resultEl of this.testResults) {
+                resultEl.innerHTML = (results || '').toString();
+            }
+            // this.testResults[0].innerHTML = (results || '').toString();
+        }
+
+    }
     </script>
 
     <style>
