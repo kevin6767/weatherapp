@@ -62,6 +62,37 @@
             console.log(new Date().toISOString(), '[Test]', 'Running the test');
             // TODO: Make the API call and handle the results
             const url = `http://api.openweathermap.org/data/2.5/weather?q=Brentwood,us&appid=25e989bd41e3e24ce13173d8126e0fd6&units=imperial`;
+            
+
+            // This is my failed attempt at getting the geo location. I was able to produce the location, however I was unable to translate it to a url
+            // I'm assuming I needed to create some kind of query string? I researched a bit but was unable to find anything useable
+            /*         
+            function getLocation() {
+            if (navigator.geolocation) {
+                console.log('starting...')
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+            }
+            function showPosition(position) {
+            
+            var lat =  position.coords.latitude; 
+            var lon = position.coords.longitude;
+            
+           // If your expected result is "http://foo.bar/?x=1&y=2&x=42"
+            url.searchParams.append('lat', lat);
+            url.searchParams.append('lon', lon);
+
+            // If your expected result is "http://foo.bar/?x=42&y=2"
+            url.searchParams.set('lat', lat);
+            url.searchParams.set('l', lon);
+            }
+            var url = 'http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=25e989bd41e3e24ce13173d8126e0fd6&units=imperial';
+            getLocation();
+            */
+             
+             
             //Using the axios libary to call the data and log it.
             const getData = async url => {
                 try {
@@ -70,29 +101,36 @@
                     console.log(data);
                     this.setResults(data);
                 } catch (error) {
-                    console.log(error);
+                    
+                    this.setError(error);
                 }
             };
             getData(url);
         }
         setError(message) {
-            // TODO: Format the error
+            message = ('There seems to be an error getting the weather')
             this.testResults[0].innerHTML = (message || '').toString();
         }
-
+        // Once I get the results in, I begin to format them, excuse the terrible html formmatting. I was trying to get this submitted and not spend too much time on it. 
         setResults(results) {
             
             console.log(results)
             var temp = results.main.temp;
+            var temp_min = results.main.temp_min;
+            var temp_max = results.main.temp_max;
             console.log(temp)              
 
             
-            
-
+             // I changed the below code because I kept running into errors and decide to use a for loop to make the code usable. This probably not the best way to produce 
+             // I'm going to continue to work on this through git and make it a bit cleaner. probably add some more functionalities, and learning async a bit better,
+             // I believe I was a bit hampered because my knowledge of ansyc is non existent but I feel that i made but strides working on this. 
+             // this.testResults[0].innerHTML = (results || '').toString();
             for(let resultEl of this.testResults) {
-                resultEl.innerHTML = (temp || '').toString();
+                resultEl.innerHTML = (temp + ' is the temperature for Brentwood, US' + '<br>' + temp_min + ' is the low for today in Brentwood, US' + '<br>' + temp_max + ' is the high for today in Brentwood, US').toString();
+                
             }
-            // this.testResults[0].innerHTML = (results || '').toString();
+           
+           
         }
 
     }
@@ -120,6 +158,11 @@
 
         .button-container > button:active {
             background-color: #006000;
+        }
+        .test-results{
+            font-size: 25px;
+            padding: 15px;
+            
         }
     </style>
 
