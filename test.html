@@ -67,6 +67,7 @@
                 try {
                     const response = await axios.get(url);
                     const data = response.data;
+                    console.log(data);
                     this.setResults(data);
                 } catch (error) {
                     console.log(error);
@@ -80,9 +81,16 @@
         }
 
         setResults(results) {
-            results = JSON.stringify(results);
+            
+            console.log(results)
+            var temp = results.main.temp;
+            console.log(temp)              
+
+            
+            
+
             for(let resultEl of this.testResults) {
-                resultEl.innerHTML = (results || '').toString();
+                resultEl.innerHTML = (temp || '').toString();
             }
             // this.testResults[0].innerHTML = (results || '').toString();
         }
